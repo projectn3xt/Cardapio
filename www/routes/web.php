@@ -19,12 +19,35 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-# Route Categorias
+/*
+|--------------------------------------------------------------------------
+| Categoria Rotas | Route Categories
+|--------------------------------------------------------------------------
+|
+*/
 
-Route::get('/categorias', 'CategoriasController@show');
+# /categorias
+Route::get('/categorias', 'CategoriasController@show')->name('/categorias');
+
+Route::post('/categorias', 'CategoriasController@save');
 
 Route::get('/categorias/add', function () {
-    return view('categorias.add');
+    $categorias = \App\Models\Categorias::all();
+    return view('categorias.add',compact('categorias',$categorias));
+})->name('/categorias/add');
+
+Route::get('/categorias/delete/{id}', function ($id) {
+    \App\Models\Categorias::destroy($id);
+    return redirect()->route('/categorias');
 });
 
-Route::post('/categorias/add', 'CategoriasController@add');
+Route::get('/categorias/edit/{id}', function ($id) {
+
+    # Lista todas as categorias / List All Categories
+    $data['categorias'] = \App\Models\Categorias::all();
+
+    # Retorna 1 cateoria por id / Return 1 category
+    $data['categoria'] = \App\Models\Categorias::find($id);
+    
+    return view('categorias.edit',$data);
+});

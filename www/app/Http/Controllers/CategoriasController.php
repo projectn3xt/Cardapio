@@ -8,6 +8,11 @@ use App\Models\Categorias;
 class CategoriasController extends Controller
 {
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function show()
     {
         $data['categorias'] = Categorias::all();
@@ -20,15 +25,24 @@ class CategoriasController extends Controller
      * @param Request $request
      * @return void
      */
-    public function add(Request $request){
+    public function save(Request $request){
 
-        $cat = new Categorias;
+        # Atualiza | Update
+        if($request->input('id'))
+            $cat = Categorias::find($request->input('id'));
+        # Insere | Insert    
+        else
+            $cat = new Categorias;
+
         $cat->categoria =  $request->input('categoria');
         $cat->categorias_id = $request->input('categoria_pai');
         $cat->descricao = $request->input('descricao');
 
         $cat->save();
 
+        return redirect()->route('/categorias/add');
+
     }
+
 
 }

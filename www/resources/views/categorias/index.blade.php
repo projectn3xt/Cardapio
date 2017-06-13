@@ -12,6 +12,7 @@
                     <td>ID</td>
                     <td>Categoria</td>
                     <td>Descrição</td>
+                    <td>Opções</op>
                 <tr>
             </thead>
             <tbody>
@@ -19,12 +20,31 @@
                 <tr>
                     <td>{{$c->id}}</td>
                     <td>{{$c->categoria}}</td>
-                    <td>{{$c->descricao}}</td>                    
+                    <td>{{$c->descricao}}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="/categorias/view/{{$c->id}}">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>    
+                            </div>
+                            <div class="col-md-4">
+                                <a href="/categorias/edit/{{$c->id}}">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>    
+                            </div>
+                            <div class="col-md-4">
+                                <a href="/categorias/delete/{{$c->id}}">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </a>    
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 @endforeach
                 <tfoot>
                     <tr>
-                        <td colspan="3">
+                        <td colspan="4">
                             <a href="/categorias/add" class="btn btn-default">Nova Categoria</a>
                         </td>
                     <tr>
